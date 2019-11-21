@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:zookeeper="http://www.springframework.org/schema/integration/zookeeper"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           https://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+		   http://www.springframework.org/schema/context/spring-context.xsd
+		   http://www.springframework.org/schema/integration/zookeeper
+		   http://www.springframework.org/schema/integration/zookeeper/spring-integration-zookeeper.xsd
+		   http://www.springframework.org/schema/integration
+		   http://www.springframework.org/schema/integration/spring-integration-5.1.xsd">
+
+	<context:property-placeholder location="classpath:rabbitmq.properties, queues.properties" />
+
+	<rabbit:connection-factory
+		id="connectionFactory"
+		host="${rabbitmq.host}" 
+		port="${rabbitmq.port}"
+		username="${rabbitmq.username}"
+		password="${rabbitmq.password}" />
+
+	<rabbit:listener-container connection-factory="connectionFactory">
+    	<rabbit:listener queues="${queue.myqueue.name}" ref="listener" method="listen"/>
+	</rabbit:listener-container>
+
+	<rabbit:queue name="${queue.myqueue.name}"/>
+	
+	<bean id="listener" class="es.aitorcuesta.rabbitmq.listener.Listener"/>
+	
+	
+
+</beans> 
