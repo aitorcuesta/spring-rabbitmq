@@ -25,7 +25,7 @@
 		password="${rabbitmq.password}" />
 		
 	<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory" />
-	<rabbit:admin connection-factory="connectionFactory" />
+	
 	<rabbit:queue name="${queue.myqueue.name}"/> 
 
 </beans> 
