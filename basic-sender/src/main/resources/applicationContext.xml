@@ -21,6 +21,7 @@
 	<rabbit:connection-factory id="connectionFactory"
 		host="${rabbitmq.host}" 
 		port="${rabbitmq.port}"
+		virtual-host="my_vhost"
 		username="${rabbitmq.username}"
 		password="${rabbitmq.password}" />
 		

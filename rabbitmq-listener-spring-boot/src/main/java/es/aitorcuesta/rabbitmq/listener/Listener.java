@@ -17,8 +17,9 @@ public class Listener {
 		return new Queue(queueName);
 	}
 
-	@RabbitListener(queues = "${queue.myqueue.name}")
-	public void listen(String message) {
+	@RabbitListener(queues = "${queue.myqueue.name}", priority="10")
+	public void listen(String message) throws InterruptedException {
+		Thread.sleep(10000l);
 		System.out.println("Spring Boot listener -->" + message);
 	}
 
